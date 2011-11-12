@@ -11,6 +11,8 @@ PROGRAM = lc3sim
 
 all: build
 build: $(PROGRAM)
+run: build
+	./$(PROGRAM) test.asm
 
 $(PROGRAM): lc3sim.o lc3.o
 	gcc lc3sim.o lc3.o -o $(PROGRAM)
