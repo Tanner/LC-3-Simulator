@@ -37,8 +37,10 @@ int main(int argc, char **argv) {
 		return 2;
 	}
 
-	/* Make a call to lc3_init to initialize your lc3machine */
-	/* Make a call to lc3_load to load the program */
+    lc3_init(&mach);
+    lc3_load(&mach, prog);
+
+    fclose(prog);
 
 	printf("LC-3 Simulator and Debugger\n");
 	printf("Written by Tanner Smith\n");
