@@ -15,7 +15,7 @@ void cmd_dump(lc3machine *mach, int start, int end);
 void cmd_setaddr(lc3machine *mach, int address, short value);
 void cmd_setreg(lc3machine *mach, int reg, short value);
 
-#define PROMPT "(lc-3)"
+#define PROMPT "(lc-3) "
 
 int main(int argc, char **argv) {
 	FILE *prog;
@@ -41,9 +41,17 @@ int main(int argc, char **argv) {
 
 	/* Run this loop until we are told to stop debugging. */
 	while (1) {
-		/* FIXME: Add some necessary variables here */
+        char *command = malloc(sizeof(char) * 100);
+        char *console_status;
+
 		printf("%s", PROMPT);
-		/* FIXME: Read in user commands and execute them! */
+        console_status = fgets(command, 100, stdin);
+
+        if (console_status != NULL || *console_status != EOF) {
+            printf("%s", command);
+        }
+
+        mach.pc++;
 	}
 
 	return 0;
