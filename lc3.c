@@ -8,7 +8,8 @@
 #include "lc3.h"
 
 void lc3_init(lc3machine* state) {
-	// Initialize the lc3 state according to the assignment.
+    state->pc = 0x3000;
+    state->cc = LC3_ZERO;
 }
 
 void lc3_load(lc3machine* state, FILE* program) {
