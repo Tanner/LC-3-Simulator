@@ -88,7 +88,7 @@ void cmd_setaddr(lc3machine *mach, int address, short value) {
 
     mach->mem[address] = value;
 
-    printf("Set memory location %.4X to %.16X", address, value);
+    printf("Set memory location %.4X to %.16X\n", address, value);
 }
 
 /* cmd_setreg
