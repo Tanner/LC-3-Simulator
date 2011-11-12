@@ -117,6 +117,18 @@ int main(int argc, char **argv) {
                     }
                 } else if (strcmp(command, "setaddr") == 0) {
                     // Set Address command
+                    if (args[1] == NULL && args[2] == NULL) {
+                        printf("Usage: setaddr addr value\n");
+                    } else {
+                        int address = htoi(args[1]);
+                        short value = atoi(args[2]);
+
+                        if (address != -1) {
+                            cmd_setaddr(&mach, address, value);
+                        } else {
+                            printf("Invalid memory address: %s\n", args[1]);
+                        }
+                    }
                 } else if (strcmp(command, "setreg") == 0) {
                     // Set Register command
                 } else if (strcmp(command, "help") == 0) {
