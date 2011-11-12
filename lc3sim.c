@@ -12,6 +12,8 @@
 #include "lc3.h"
 
 void split(char *input, char **split, char *delimiter, int count);
+int htoi(char *str);
+int hex_letter_to_int(char letter);
 void cmd_registers(lc3machine *mach);
 void cmd_dump(lc3machine *mach, int start, int end);
 void cmd_setaddr(lc3machine *mach, int address, short value);
@@ -147,6 +149,61 @@ void split(char *input, char **split, char *delimiter, int count) {
 
         temp = strtok(NULL, delimiter);
     }
+}
+
+int htoi(char *str) {
+    int i = 0;
+
+    if (str[i] == '0') {
+        i++;
+        if (str[i] == 'x' || str[i] == 'X') {
+            i++;
+        }
+    }
+
+    if (i == 2) {
+        // Good so far got the 0x
+        int answer = 0;
+
+        while (i < strlen(str)) {
+            answer *= 16;
+
+            if (str[i] >= '0' && str[i] <= '9') {
+                answer += str[i] - '0';
+            } else {
+                int number = hex_letter_to_int(str[i]);
+                answer += number;
+
+                if (number == 0) {
+                    return 0;
+                }
+            }
+
+            i++;
+        }
+
+        return answer;
+    } else {
+        return 0;
+    }
+}
+
+int hex_letter_to_int(char letter) {
+    if (letter & 0x20) {
+        // Letter is lowercase
+        if (letter >= 97 && letter <= 102) {
+            // a to f
+            return 10 + (letter - 97);
+        }
+    } else {
+        // Letter is uppercase
+        if (letter >= 65 && letter <= 70) {
+            // A to F
+            return 10 + (letter - 65);
+        }
+    }
+
+    return 0;
 }
 
 /* cmd_step and cmd_continue 's functionality are provided in lc3_run
