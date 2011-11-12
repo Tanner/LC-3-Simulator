@@ -51,14 +51,15 @@ int main(int argc, char **argv) {
         if (console_status != NULL || *console_status != EOF) {
             char *command = strtok(input, " ");
 
-            char *command_args;
+            int number_args = 2;
+            char **command_args = malloc(sizeof(char *) * number_args);
 
             printf("Command: %s\n", command);
             if (command != NULL) {
-                do {
-                    command_args = strtok(NULL, " ");
-                    printf("Arg: %s\n", command_args);
-                } while (command_args != NULL);
+                for (int i = 0; i < number_args; i++) {
+                    command_args[i] = strtok(NULL, " ");
+                    printf("Arg: %s\n", command_args[i]);
+                }
             }
         }
 
