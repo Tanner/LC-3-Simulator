@@ -43,7 +43,12 @@ int main(int argc, char **argv) {
 
 	/* Run this loop until we are told to stop debugging. */
     char *input = malloc(sizeof(char) * 100);
+    assert(input);
+
     int max_args = 2;
+
+    char **args = malloc(sizeof(char *) * max_args + 1);
+    assert(args);
 
 	while (1) {
         char *console_status;
@@ -54,15 +59,15 @@ int main(int argc, char **argv) {
 
         if (console_status != NULL || *console_status != EOF) {
             // Input was successful so split input into command and args
-            char **args = malloc(sizeof(char *) * max_args + 1);
-            assert(args);
 
+            // Input was successful so split input into command and args
             split(input, args, " \n", max_args + 1);
 
             // Grab the command and check it amongst all our commands
             char *command = args[0];
 
             if (command != NULL) {
+                printf("Command: %s\n", command);
                 if (strcmp(command, "step") == 0) {
                     // Step Command
                 } else if (strcmp(command, "quit") == 0) {
@@ -91,6 +96,12 @@ int main(int argc, char **argv) {
 	}
 
     free(input);
+    free(prev_input);
+
+    for (int i = 0; i < sizeof(args) / sizeof(char *); i++) {
+        free(args[i]);
+    }
+    free(args);
 
 	return 0;
 }
