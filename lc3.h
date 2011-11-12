@@ -1,12 +1,14 @@
-// DO NOT CHANGE ANY PROTOTYPE NAMES
-// OR ARGUMENTS PASSED IN TO ANY PROTOTYPE HERE.
-
-// YOU MAY ADD ADDITIONAL FUNCTIONS BUT YOU MUST IMPLEMENT THE ONES BELOW
+/**
+ * lc3.h
+ * An LC-3 simulator.
+ *
+ * Author: Brandon Whitehead
+ * Editor: Tanner Smith
+ */
 
 #include <stdio.h>
 
-enum lc3_cc
-{
+enum lc3_cc {
 	LC3_NEGATIVE = 4,
 	LC3_ZERO = 2,
 	LC3_POSITIVE = 1
@@ -15,8 +17,7 @@ enum lc3_cc
 /**
  * A structure that represents the state of the LC3 machine.
  */
-typedef struct 
-{
+typedef struct {
 	short mem[65536]; /* Memory */
 	short regs[8]; /* The eight registers in the LC-3 */
 	unsigned short pc; /* The pc register */

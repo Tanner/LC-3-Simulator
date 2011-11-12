@@ -1,6 +1,8 @@
-/* LC3 simulator file.
- * Complete the functions!
- * This is a front-end to the code you wrote in lc3.c
+/**
+ * lc3sim.c
+ * A front end to a LC-3 simulator.
+ *
+ * Author: Tanner Smith
  */
 
 #include <stdio.h>
@@ -55,28 +57,23 @@ Therefore to execute the step and coninute commands you can just call lc3_run wi
 /* cmd_registers
 Should print out all of the registers and the PC and CC in both hex and signed decimal.
 */
-void cmd_registers(void)
-{
+void cmd_registers(void) {
 }
 
 /* cmd_dump
 Should print out the contents of memory from start to end
 If end is -1 then just print out memory[start]*/
-void cmd_dump(int start, int end)
-{
+void cmd_dump(int start, int end) {
 }
 
 /* cmd_setaddr
  Should set a memory address to some value
 */
-void cmd_setaddr(int address, short value)
-{
+void cmd_setaddr(int address, short value) {
 }
 
 /* cmd_setreg
   Should set a register to some value passed in
 */
-void cmd_setreg(int reg, short value)
-{
+void cmd_setreg(int reg, short value) {
 }
-
