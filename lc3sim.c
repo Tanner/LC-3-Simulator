@@ -280,7 +280,7 @@ void cmd_setaddr(lc3machine *mach, int address, short value) {
 
     mach->mem[address] = value;
 
-    printf("Set memory location 0x%.4X to 0x%.16X\n", address, value);
+    printf("Set memory location 0x%.4X to 0x%.16X (%d)\n", address, value, value);
 }
 
 /* cmd_setreg
@@ -294,5 +294,5 @@ void cmd_setreg(lc3machine *mach, int reg, short value) {
 
     mach->regs[reg - 1] = value;
 
-    printf("Set R%d to %.16X\n", reg, value);
+    printf("Set R%d to 0x%.16X (%d)\n", reg, value, value);
 }
