@@ -12,7 +12,8 @@ PROGRAM = lc3sim
 
 all: build-release
 run: build-release
-	./$(PROGRAM) test.asm
+	lc3as test.asm
+	./$(PROGRAM) test.obj
 
 build-release: CFLAGS += $(OPTFLAG)
 build-release: $(PROGRAM)
