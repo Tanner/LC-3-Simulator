@@ -1,3 +1,8 @@
+###########################################
+# Author: Brandon Whitehead
+# Editor: Tanner Smith
+###########################################
+
 CC = gcc
 CFLAGS = -std=c99 -pedantic -Wall -Werror
 OPTFLAG = -O2
