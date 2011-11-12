@@ -45,6 +45,9 @@ int main(int argc, char **argv) {
     char *input = malloc(sizeof(char) * 100);
     assert(input);
 
+    char *prev_input = malloc(sizeof(char) * 100);
+    assert(prev_input);
+
     int max_args = 2;
 
     char **args = malloc(sizeof(char *) * max_args + 1);
@@ -57,8 +60,15 @@ int main(int argc, char **argv) {
 		printf("%s", PROMPT);
         console_status = fgets(input, 100, stdin);
 
-        if (console_status != NULL || *console_status != EOF) {
-            // Input was successful so split input into command and args
+        if (console_status != NULL) {
+            // Check to see if the user just pushed enter
+            if (strcmp(input, "\n") == 0) {
+                // If the user pushed enter, copy last command
+                strncpy(input, prev_input, 100);
+            } else {
+                // If not, save the current command as last command
+                strncpy(prev_input, input, 100);
+            }
 
             // Input was successful so split input into command and args
             split(input, args, " \n", max_args + 1);
