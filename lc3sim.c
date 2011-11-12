@@ -45,10 +45,12 @@ int main(int argc, char **argv) {
 	while (1) {
         char *console_status;
 
+        // Get input from user
 		printf("%s", PROMPT);
         console_status = fgets(input, 100, stdin);
 
         if (console_status != NULL || *console_status != EOF) {
+            // Input was successful so split input into command
             char *command = strtok(input, " ");
 
             int number_args = 2;
