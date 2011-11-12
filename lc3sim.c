@@ -78,6 +78,10 @@ int main(int argc, char **argv) {
 
             if (command != NULL) {
                 printf("Command: %s\n", command);
+                for (int i = 0; i < max_args + 1; i++) {
+                    printf("Arg %i = %s\n", i, args[i]);
+                }
+
                 if (strcmp(command, "step") == 0) {
                     // Step Command
                 } else if (strcmp(command, "quit") == 0) {
@@ -90,6 +94,13 @@ int main(int argc, char **argv) {
                     cmd_registers(&mach);
                 } else if (strcmp(command, "dump") == 0) {
                     // Dump command
+                    if (args[1] == NULL) {
+                        printf("Usage: dump start [end]\n");
+                    } else if (args[2] == NULL) {
+                        cmd_dump(&mach, atoi(args[1]), -1);
+                    } else {
+                        cmd_dump(&mach, atoi(args[1]), atoi(args[2]));
+                    }
                 } else if (strcmp(command, "setaddr") == 0) {
                     // Set Address command
                 } else if (strcmp(command, "setreg") == 0) {
