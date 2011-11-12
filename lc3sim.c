@@ -40,8 +40,9 @@ int main(int argc, char **argv) {
 	printf("Written by Tanner Smith\n");
 
 	/* Run this loop until we are told to stop debugging. */
+    char *command = malloc(sizeof(char) * 100);
+
 	while (1) {
-        char *command = malloc(sizeof(char) * 100);
         char *console_status;
 
 		printf("%s", PROMPT);
@@ -53,6 +54,8 @@ int main(int argc, char **argv) {
 
         mach.pc++;
 	}
+
+    free(command);
 
 	return 0;
 }
