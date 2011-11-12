@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
                     // Continue command
                 } else if (strcmp(command, "registers") == 0) {
                     // Registers command
+                    cmd_registers(&mach);
                 } else if (strcmp(command, "dump") == 0) {
                     // Dump command
                 } else if (strcmp(command, "setaddr") == 0) {
