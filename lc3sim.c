@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "lc3.h"
 
 void split(char *input, char **split, char *delimiter, int count);
@@ -54,6 +55,8 @@ int main(int argc, char **argv) {
         if (console_status != NULL || *console_status != EOF) {
             // Input was successful so split input into command
             char **args = malloc(sizeof(char *) * max_args + 1);
+            assert(args);
+
             split(input, args, " \n", max_args + 1);
 
             char *command = args[0];
@@ -78,6 +81,8 @@ void split(char *input, char **split, char *delimiter, int count) {
 
     for (int i = 0; i < count && temp != NULL; i++) {
         split[i] = malloc(strlen(temp) + 1);
+        assert(split[i]);
+
         strcpy(split[i], temp);
 
         temp = strtok(NULL, delimiter);
