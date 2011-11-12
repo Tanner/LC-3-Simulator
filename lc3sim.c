@@ -131,6 +131,22 @@ int main(int argc, char **argv) {
                     }
                 } else if (strcmp(command, "setreg") == 0) {
                     // Set Register command
+                    if (args[1] == NULL && args[2] == NULL) {
+                        printf("Usage: setreg Rn value\n");
+                    } else {
+                        if (args[1][0] == 'R' || args[1][0] == 'r') {
+                            int reg = args[1][1] - '0';
+                            int value = atoi(args[2]);
+
+                            if (reg >= 1 && reg <= 8) {
+                                cmd_setreg(&mach, reg, value);
+                            } else {
+                                printf("Invalid registers: %d\n", reg);
+                            }
+                        } else {
+                            printf("Usage: setreg Rn value\n");
+                        }
+                    }
                 } else if (strcmp(command, "help") == 0) {
                     // Help command
                 } else {
