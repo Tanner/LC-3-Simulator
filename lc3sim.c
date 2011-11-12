@@ -16,7 +16,7 @@ void cmd_setaddr(int address, short value);
 void cmd_setreg(int reg, short value);
 
 /* FIXME: change this to be a good prompt string */
-#define PROMPT ""
+#define PROMPT "(lc-3)"
 
 int main(int argc, char **argv) {
 	FILE *prog;
@@ -37,9 +37,8 @@ int main(int argc, char **argv) {
 	/* Make a call to lc3_init to initialize your lc3machine */
 	/* Make a call to lc3_load to load the program */
 
-	/* FIXME: add your name here! */
-	printf("LC-3 simulator and debugger\n");
-	printf("Written by YOUR NAME HERE\n");
+	printf("LC-3 Simulator and Debugger\n");
+	printf("Written by Tanner Smith\n");
 
 	/* Run this loop until we are told to stop debugging. */
 	while (1) {
