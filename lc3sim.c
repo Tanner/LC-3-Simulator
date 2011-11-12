@@ -98,10 +98,22 @@ int main(int argc, char **argv) {
                     // Dump command
                     if (args[1] == NULL) {
                         printf("Usage: dump start [end]\n");
-                    } else if (args[2] == NULL) {
-                        cmd_dump(&mach, atoi(args[1]), -1);
                     } else {
-                        cmd_dump(&mach, atoi(args[1]), atoi(args[2]));
+                        int start = htoi(args[1]);
+
+                        if (args[2] == NULL && start != -1) {
+                            cmd_dump(&mach, start, -1);
+                        } else if (args[2] != NULL) {
+                            int end = htoi(args[2]);
+                            
+                            if (end != -1) {
+                                cmd_dump(&mach, start, end);
+                            } else {
+                                printf("Invalid memory address: %s\n", args[2]);
+                            }
+                        } else {
+                            printf("Invalid memory address: %s\n", args[1]);
+                        }
                     }
                 } else if (strcmp(command, "setaddr") == 0) {
                     // Set Address command
@@ -175,7 +187,7 @@ int htoi(char *str) {
                 answer += number;
 
                 if (number == 0) {
-                    return 0;
+                    return -1;
                 }
             }
 
@@ -184,7 +196,7 @@ int htoi(char *str) {
 
         return answer;
     } else {
-        return 0;
+        return -1;
     }
 }
 
