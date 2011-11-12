@@ -120,11 +120,19 @@ int main(int argc, char **argv) {
 void split(char *input, char **split, char *delimiter, int count) {
     char *temp = strtok(input, delimiter);
 
-    for (int i = 0; i < count && temp != NULL; i++) {
-        split[i] = malloc(strlen(temp) + 1);
-        assert(split[i]);
+    for (int i = 0; i < count; i++) {
+        if (split[i] != NULL) {
+            free(split[i]);
 
-        strcpy(split[i], temp);
+            split[i] = NULL;
+        }
+
+        if (temp != NULL) {
+            split[i] = malloc(strlen(temp) + 1);
+            assert(split[i]);
+
+            strcpy(split[i], temp);
+        }
 
         temp = strtok(NULL, delimiter);
     }
