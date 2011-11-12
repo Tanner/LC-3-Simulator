@@ -79,11 +79,6 @@ int main(int argc, char **argv) {
             char *command = args[0];
 
             if (command != NULL) {
-                printf("Command: %s\n", command);
-                for (int i = 0; i < max_args + 1; i++) {
-                    printf("Arg %i = %s\n", i, args[i]);
-                }
-
                 if (strcmp(command, "step") == 0) {
                     // Step Command
                 } else if (strcmp(command, "quit") == 0) {
