@@ -6,6 +6,7 @@
 CC = gcc
 CFLAGS = -std=c99 -pedantic -Wall -Werror
 OPTFLAG = -O2
+DEBUGFLAG = -g
 
 PROGRAM = lc3sim
 
@@ -13,6 +14,9 @@ all: build
 build: $(PROGRAM)
 run: build
 	./$(PROGRAM) test.asm
+debug: CFLAGS += $(DEBUGFLAG)
+debug: clean build
+	gdb ./$(PROGRAM)
 
 $(PROGRAM): lc3sim.o lc3.o
 	gcc lc3sim.o lc3.o -o $(PROGRAM)
