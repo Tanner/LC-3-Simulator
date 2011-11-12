@@ -53,18 +53,37 @@ int main(int argc, char **argv) {
         console_status = fgets(input, 100, stdin);
 
         if (console_status != NULL || *console_status != EOF) {
-            // Input was successful so split input into command
+            // Input was successful so split input into command and args
             char **args = malloc(sizeof(char *) * max_args + 1);
             assert(args);
 
             split(input, args, " \n", max_args + 1);
 
+            // Grab the command and check it amongst all our commands
             char *command = args[0];
 
             if (command != NULL) {
-                printf("Command: %s\n", command);
-
-                printf("Arg: %s and %s\n", args[1], args[2]);
+                if (strcmp(command, "step") == 0) {
+                    // Step Command
+                } else if (strcmp(command, "quit") == 0) {
+                    // Quit command
+                    break;
+                } else if (strcmp(command, "continue") == 0) {
+                    // Continue command
+                } else if (strcmp(command, "registers") == 0) {
+                    // Registers command
+                } else if (strcmp(command, "dump") == 0) {
+                    // Dump command
+                } else if (strcmp(command, "setaddr") == 0) {
+                    // Set Address command
+                } else if (strcmp(command, "setreg") == 0) {
+                    // Set Register command
+                } else if (strcmp(command, "help") == 0) {
+                    // Help command
+                } else {
+                    // Invalid command
+                    printf("Undefined command: \"%s\". Try \"help\".\n", command);
+                }
             }
         }
 
