@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "lc3.h"
 
-char ** get_args(int number_args);
+void split(char *input, char **split, char *delimiter, int count);
 void cmd_registers(lc3machine *mach);
 void cmd_dump(lc3machine *mach, int start, int end);
 void cmd_setaddr(lc3machine *mach, int address, short value);
@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
 
 	/* Run this loop until we are told to stop debugging. */
     char *input = malloc(sizeof(char) * 100);
+    int max_args = 2;
 
 	while (1) {
         char *console_status;
@@ -52,16 +53,15 @@ int main(int argc, char **argv) {
 
         if (console_status != NULL || *console_status != EOF) {
             // Input was successful so split input into command
-            char *command = strtok(input, " ");
+            char **args = malloc(sizeof(char *) * max_args + 1);
+            split(input, args, " \n", max_args + 1);
 
-            int number_args = 0;
+            char *command = args[0];
 
             if (command != NULL) {
                 printf("Command: %s\n", command);
 
-                number_args = 2;
-                char **args = get_args(number_args);
-                printf("Arg: %s and %s\n", args[0], args[1]);
+                printf("Arg: %s and %s\n", args[1], args[2]);
             }
         }
 
@@ -73,14 +73,15 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-char ** get_args(int number_args) {
-    char **command_args = malloc(sizeof(char *) * number_args);
+void split(char *input, char **split, char *delimiter, int count) {
+    char *temp = strtok(input, delimiter);
 
-    for (int i = 0; i < number_args; i++) {
-        command_args[i] = strtok(NULL, " \n");
+    for (int i = 0; i < count && temp != NULL; i++) {
+        split[i] = malloc(strlen(temp) + 1);
+        strcpy(split[i], temp);
+
+        temp = strtok(NULL, delimiter);
     }
-
-    return command_args;
 }
 
 /* cmd_step and cmd_continue 's functionality are provided in lc3_run
