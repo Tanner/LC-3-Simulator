@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "lc3.h"
 
+char ** get_args(int number_args);
 void cmd_registers(lc3machine *mach);
 void cmd_dump(lc3machine *mach, int start, int end);
 void cmd_setaddr(lc3machine *mach, int address, short value);
@@ -53,15 +54,14 @@ int main(int argc, char **argv) {
             // Input was successful so split input into command
             char *command = strtok(input, " ");
 
-            int number_args = 2;
-            char **command_args = malloc(sizeof(char *) * number_args);
+            int number_args = 0;
 
-            printf("Command: %s\n", command);
             if (command != NULL) {
-                for (int i = 0; i < number_args; i++) {
-                    command_args[i] = strtok(NULL, " ");
-                    printf("Arg: %s\n", command_args[i]);
-                }
+                printf("Command: %s\n", command);
+
+                number_args = 2;
+                char **args = get_args(number_args);
+                printf("Arg: %s and %s\n", args[0], args[1]);
             }
         }
 
@@ -71,6 +71,16 @@ int main(int argc, char **argv) {
     free(input);
 
 	return 0;
+}
+
+char ** get_args(int number_args) {
+    char **command_args = malloc(sizeof(char *) * number_args);
+
+    for (int i = 0; i < number_args; i++) {
+        command_args[i] = strtok(NULL, " \n");
+    }
+
+    return command_args;
 }
 
 /* cmd_step and cmd_continue 's functionality are provided in lc3_run
