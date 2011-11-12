@@ -241,7 +241,7 @@ void cmd_registers(lc3machine *mach) {
     printf("CC: 0x%.6X (%d)\n", mach->cc, mach->cc);
 
     for (int i = 0; i < sizeof(mach->regs) / sizeof(short); i++) {
-        printf("R%d: 0x%.6X (%d)\n", i, mach->regs[i], mach->regs[i]);
+        printf("R%d: 0x%.6X (%d)\n", i + 1, mach->regs[i], mach->regs[i]);
     }
 }
 
