@@ -40,22 +40,32 @@ int main(int argc, char **argv) {
 	printf("Written by Tanner Smith\n");
 
 	/* Run this loop until we are told to stop debugging. */
-    char *command = malloc(sizeof(char) * 100);
+    char *input = malloc(sizeof(char) * 100);
 
 	while (1) {
         char *console_status;
 
 		printf("%s", PROMPT);
-        console_status = fgets(command, 100, stdin);
+        console_status = fgets(input, 100, stdin);
 
         if (console_status != NULL || *console_status != EOF) {
-            printf("%s", command);
+            char *command = strtok(input, " ");
+
+            char *command_args;
+
+            printf("Command: %s\n", command);
+            if (command != NULL) {
+                do {
+                    command_args = strtok(NULL, " ");
+                    printf("Arg: %s\n", command_args);
+                } while (command_args != NULL);
+            }
         }
 
         mach.pc++;
 	}
 
-    free(command);
+    free(input);
 
 	return 0;
 }
