@@ -288,11 +288,11 @@ void cmd_setaddr(lc3machine *mach, int address, short value) {
 */
 void cmd_setreg(lc3machine *mach, int reg, short value) {
     // Check the bounds of the register first
-    if (reg < 0 || reg > sizeof(mach->regs) / sizeof(short)) {
+    if (reg < 1 || reg > sizeof(mach->regs) / sizeof(short)) {
         return;
     }
 
-    mach->regs[reg] = value;
+    mach->regs[reg - 1] = value;
 
     printf("Set R%d to %.16X\n", reg, value);
 }
