@@ -10,10 +10,10 @@
 #include <stdlib.h>
 #include "lc3.h"
 
-void cmd_registers(void);
-void cmd_dump(int start, int end);
-void cmd_setaddr(int address, short value);
-void cmd_setreg(int reg, short value);
+void cmd_registers(lc3machine *mach);
+void cmd_dump(lc3machine *mach, int start, int end);
+void cmd_setaddr(lc3machine *mach, int address, short value);
+void cmd_setreg(lc3machine *mach, int reg, short value);
 
 #define PROMPT "(lc-3)"
 
@@ -55,23 +55,23 @@ Therefore to execute the step and coninute commands you can just call lc3_run wi
 /* cmd_registers
 Should print out all of the registers and the PC and CC in both hex and signed decimal.
 */
-void cmd_registers(void) {
+void cmd_registers(lc3machine *mach) {
 }
 
 /* cmd_dump
 Should print out the contents of memory from start to end
 If end is -1 then just print out memory[start]*/
-void cmd_dump(int start, int end) {
+void cmd_dump(lc3machine *mach, int start, int end) {
 }
 
 /* cmd_setaddr
  Should set a memory address to some value
 */
-void cmd_setaddr(int address, short value) {
+void cmd_setaddr(lc3machine *mach, int address, short value) {
 }
 
 /* cmd_setreg
   Should set a register to some value passed in
 */
-void cmd_setreg(int reg, short value) {
+void cmd_setreg(lc3machine *mach, int reg, short value) {
 }
