@@ -15,7 +15,6 @@ void cmd_dump(int start, int end);
 void cmd_setaddr(int address, short value);
 void cmd_setreg(int reg, short value);
 
-/* FIXME: change this to be a good prompt string */
 #define PROMPT "(lc-3)"
 
 int main(int argc, char **argv) {
