@@ -44,9 +44,8 @@ void lc3_step_one(lc3machine* state) {
 	// If the machine is not halted
 	// Fetch an instruction
 	// And call lc3_execute 
-    if (state->halt) {
+    if (!state->halt) {
         short instruction = lc3_fetch(state);
-        state->pc++;
 
         lc3_execute(state, instruction);
     }
