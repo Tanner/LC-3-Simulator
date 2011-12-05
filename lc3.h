@@ -66,3 +66,18 @@ void lc3_execute(lc3machine* state, unsigned short instruction);
    Trap execution function called from within lc3_execute.
 */
 void lc3_trap(lc3machine* state, unsigned char vector8);
+
+/* lc3_get_opcode
+   Gets the opcode from an instruction.
+*/
+unsigned short lc3_get_opcode(unsigned short instruction);
+
+/* lc3_get_11_to_9
+   Gets bits 11 through 9 in the instruction.
+*/
+unsigned short lc3_get_11_to_9(unsigned short instruction);
+
+/* lc3_get_8_to_6
+   Gets bits 8 through 6 in the instruction.
+*/
+unsigned short lc3_get_8_to_6(unsigned short instruction);

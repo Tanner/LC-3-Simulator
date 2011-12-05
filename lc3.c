@@ -72,7 +72,27 @@ unsigned short lc3_fetch(lc3machine* state) {
 }
 
 void lc3_execute(lc3machine* state, unsigned short instruction) {
+    unsigned short opcode = lc3_get_opcode(instruction);
+
+    if (opcode == 0x1) {
+        // ADD
+        unsigned short dest = lc3_get_11_to_9(instruction);
+        unsigned short src = lc3_get_8_to_6(instruction);
+        printf("R%d = R%d", dest, src);
+    }
 }
 
 void lc3_trap(lc3machine* state, unsigned char vector8) {
+}
+
+unsigned short lc3_get_opcode(unsigned short instruction) {
+    return (instruction & 0xF000) >> 12;
+}
+
+unsigned short lc3_get_11_to_9(unsigned short instruction) {
+    return (instruction >> 9) & 0x7;
+}
+
+unsigned short lc3_get_8_to_6(unsigned short instruction) {
+    return (instruction >> 6) & 0x7;
 }
