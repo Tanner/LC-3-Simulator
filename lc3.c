@@ -13,10 +13,22 @@ void lc3_init(lc3machine* state) {
 }
 
 void lc3_load(lc3machine* state, FILE* program) {
+    lc3_init(state);
 	/* FIXME: Add in the code to initialize the memory according to the
 	          contents of the program as well as the initial state of the
 			  machine's registers. */
 	// Reread the section on the .obj file format.
+    short data = 0;
+
+    while (data != EOF) {
+        data = (fgetc(program) << 8) | fgetc(program);
+
+        if (data == EOF) {
+            break;
+        }
+
+        printf("%.16X\n", data);
+    }
 }
 
 void lc3_step_one(lc3machine* state) {
