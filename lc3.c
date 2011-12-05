@@ -11,6 +11,7 @@
 void lc3_init(lc3machine* state) {
     state->pc = 0x3000;
     state->cc = LC3_ZERO;
+    state->halt = false;
 }
 
 void lc3_load(lc3machine* state, FILE* program) {
@@ -33,7 +34,6 @@ void lc3_load(lc3machine* state, FILE* program) {
             instruction = true;
         } else {
             state->mem[address] = data;
-            printf("mem[%.4X] = %.16X\n", address, data);
             ++address;
         }
     }

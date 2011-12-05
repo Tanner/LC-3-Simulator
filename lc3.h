@@ -22,6 +22,7 @@ typedef struct {
 	short regs[8]; /* The eight registers in the LC-3 */
 	unsigned short pc; /* The pc register */
 	unsigned char cc; /* The condition code register the value will be one of the enum values above */
+    int halt; /* Whether or not the machine is halted */
 } lc3machine;
 
 /* lc3_init
