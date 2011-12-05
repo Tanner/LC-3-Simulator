@@ -53,8 +53,14 @@ void lc3_step_one(lc3machine* state) {
 }
 
 void lc3_run(lc3machine* state, int num_steps) {
-    for (int i = 0; i < num_steps; i++) {
-        lc3_step_one(state);
+    if (num_steps >= 0) {
+        for (int i = 0; i < num_steps && !state->halt; i++) {
+            lc3_step_one(state);
+        }
+    } else if (num_steps == -1) {
+        while (!state->halt) {
+            lc3_step_one(state);
+        }
     }
 }
 
