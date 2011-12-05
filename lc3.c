@@ -30,6 +30,7 @@ void lc3_load(lc3machine* state, FILE* program) {
 
         if (!instruction) {
             address = data;
+            state->pc = address;
 
             instruction = true;
         } else {
