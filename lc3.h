@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 
+#define SEXT5(A) (((A) & 0x1F) | (((A) & 0x10) ? 0xFFE0 : 0x0))
 #define SEXT9(A) (((A) & 0x1FF) | (((A) & 0x100) ? 0xFE00 : 0x0))
 
 enum lc3_cc {

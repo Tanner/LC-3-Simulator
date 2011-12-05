@@ -91,7 +91,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             // IMM5
             unsigned short imm5 = instruction & 0x1F;
 
-            answer = state->regs[src1] + imm5;
+            answer = state->regs[src1] + SEXT5(imm5);
         }
 
         state->regs[dest] = answer;
@@ -114,7 +114,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             // IMM5
             unsigned short imm5 = instruction & 0x1F;
 
-            answer = state->regs[src1] & imm5;
+            answer = state->regs[src1] & SEXT5(imm5);
         }
 
         state->regs[dest] = answer;
@@ -126,12 +126,12 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned char z = (instruction >> 10) & 0x1;
         unsigned char p = (instruction >> 9) & 0x1;
 
-        short offset = SEXT9(lc3_get_8_to_0(instruction));
+        short offset = lc3_get_8_to_0(instruction);
 
         unsigned char cc = state->cc;
         
         if ((p && cc == LC3_POSITIVE) || (z && cc == LC3_ZERO) || (n && cc == LC3_NEGATIVE)) {
-            state->pc += offset;
+            state->pc += SEXT9(offset);
         }
     }
 }
