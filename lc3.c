@@ -53,6 +53,9 @@ void lc3_step_one(lc3machine* state) {
 }
 
 void lc3_run(lc3machine* state, int num_steps) {
+    for (int i = 0; i < num_steps; i++) {
+        lc3_step_one(state);
+    }
 }
 
 unsigned short lc3_fetch(lc3machine* state) {
