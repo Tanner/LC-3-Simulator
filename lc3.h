@@ -94,4 +94,4 @@ void lc3_update_cc(lc3machine *state, unsigned short answer);
 /* lc3_get_8_to_0
    Gets bits 8 through 0 in the instruction.
 */
-short lc3_get_8_to_0(unsigned short instruction);
+unsigned short lc3_get_8_to_0(unsigned short instruction);
