@@ -150,6 +150,10 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             state->pc += SEXT11(offset);
         } else {
             // JSRR
+            
+            unsigned short base = lc3_get_8_to_6(instruction);
+
+            state->pc = state->regs[base];
         }
     }
 }
