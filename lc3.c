@@ -82,7 +82,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
         unsigned short answer = 0;
 
-        if (!bit5) {
+        if (bit5 == 0) {
             // Non-IMM5
             unsigned short src2 = instruction & 0x7;
 
