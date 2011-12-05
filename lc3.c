@@ -11,7 +11,7 @@
 void lc3_init(lc3machine* state) {
     state->pc = 0x3000;
     state->cc = LC3_ZERO;
-    state->halt = false;
+    state->halted = false;
 }
 
 void lc3_load(lc3machine* state, FILE* program) {
@@ -44,7 +44,7 @@ void lc3_step_one(lc3machine* state) {
 	// If the machine is not halted
 	// Fetch an instruction
 	// And call lc3_execute 
-    if (!state->halt) {
+    if (!state->halted) {
         short instruction = lc3_fetch(state);
 
         lc3_execute(state, instruction);
@@ -53,11 +53,11 @@ void lc3_step_one(lc3machine* state) {
 
 void lc3_run(lc3machine* state, int num_steps) {
     if (num_steps >= 0) {
-        for (int i = 0; i < num_steps && !state->halt; i++) {
+        for (int i = 0; i < num_steps && !state->halted; i++) {
             lc3_step_one(state);
         }
     } else if (num_steps == -1) {
-        while (!state->halt) {
+        while (!state->halted) {
             lc3_step_one(state);
         }
     }
