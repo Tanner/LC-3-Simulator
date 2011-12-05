@@ -136,8 +136,21 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     } else if (opcode == 0xC) {
         // JMP or RET
         unsigned short reg = lc3_get_8_to_6(instruction);
-
         state->pc = state->regs[reg];
+    } else if (opcode == 0x4) {
+        // JSR or JSRR
+        state->regs[6] = state->pc;
+
+        unsigned short bit11 = instruction & 0x400;
+
+        if (bit11) {
+            // JSR
+            unsigned short offset = instruction & 0x7FF;
+
+            state->pc += SEXT11(offset);
+        } else {
+            // JSRR
+        }
     }
 }
 
@@ -169,3 +182,4 @@ void lc3_update_cc(lc3machine *state, unsigned short answer) {
         state->cc = LC3_ZERO;
     }
 }
+
