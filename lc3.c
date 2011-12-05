@@ -77,8 +77,24 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     if (opcode == 0x1) {
         // ADD
         unsigned short dest = lc3_get_11_to_9(instruction);
-        unsigned short src = lc3_get_8_to_6(instruction);
-        printf("R%d = R%d", dest, src);
+        unsigned short src1 = lc3_get_8_to_6(instruction);
+        unsigned short bit5 = (instruction >> 5) & 0x1;
+
+        unsigned short answer = 0;
+
+        if (!bit5) {
+            // Non-IMM5
+            unsigned short src2 = instruction & 0x7;
+
+            answer = state->regs[src1] + state->regs[src2];
+        } else {
+            // IMM5
+            unsigned short imm5 = instruction & 0x1F;
+
+            answer = state->regs[src1] + imm5;
+        }
+
+        state->regs[dest] = answer;
     }
 }
 
