@@ -153,6 +153,15 @@ int main(int argc, char **argv) {
                     }
                 } else if (strcmp(command, "help") == 0) {
                     // Help command
+                    printf("List of commands:\n\n");
+                    printf("step [n]\t\tn is the number of steps; -1 for infinite\n");
+                    printf("quit\t\t\tQuits the simulator\n");
+                    printf("continue\t\tRuns the simulator until halt\n");
+                    printf("registers\t\tPrints all registers, the CC, and PC to the screen\n");
+                    printf("dump start [end]\tDumps all memory from start to end\n");
+                    printf("setaddr addr val\tSets memory address (hex) to val (dec)\n");
+                    printf("setreg Rn val\t\tSets register n (1 to 8) to val (dec)\n");
+                    printf("\n[ ] represent an argument that is not required\n\n");
                 } else {
                     // Invalid command
                     printf("Undefined command: \"%s\". Try \"help\".\n", command);
