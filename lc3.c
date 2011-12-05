@@ -18,6 +18,7 @@ void lc3_load(lc3machine* state, FILE* program) {
 
     bool instruction = false;
     short data = 0;
+    short address = 0;
 
     while (data != EOF) {
         data = (fgetc(program) << 8) | fgetc(program);
@@ -27,9 +28,13 @@ void lc3_load(lc3machine* state, FILE* program) {
         }
 
         if (!instruction) {
+            address = data;
+
             instruction = true;
         } else {
-            printf("%.16X\n", data);
+            state->mem[address] = data;
+            printf("mem[%.4X] = %.16X\n", address, data);
+            ++address;
         }
     }
 }
