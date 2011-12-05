@@ -56,9 +56,11 @@ void lc3_run(lc3machine* state, int num_steps) {
 }
 
 unsigned short lc3_fetch(lc3machine* state) {
-	/* Think back to when we first started assembly to code this */
-	/* What happens during the fetch stage? */
-	return 0;
+    short instruction = state->mem[state->pc];
+
+    state->pc++;
+
+	return instruction;
 }
 
 void lc3_execute(lc3machine* state, unsigned short instruction) {
