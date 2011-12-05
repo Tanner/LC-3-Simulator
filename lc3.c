@@ -5,6 +5,7 @@
  * Author: Tanner Smith
  */
 
+#include <stdbool.h>
 #include "lc3.h"
 
 void lc3_init(lc3machine* state) {
@@ -15,6 +16,7 @@ void lc3_init(lc3machine* state) {
 void lc3_load(lc3machine* state, FILE* program) {
     lc3_init(state);
 
+    bool instruction = false;
     short data = 0;
 
     while (data != EOF) {
@@ -24,7 +26,11 @@ void lc3_load(lc3machine* state, FILE* program) {
             break;
         }
 
-        printf("%.16X\n", data);
+        if (!instruction) {
+            instruction = true;
+        } else {
+            printf("%.16X\n", data);
+        }
     }
 }
 
