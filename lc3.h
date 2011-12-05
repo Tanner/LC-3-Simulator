@@ -81,3 +81,8 @@ unsigned short lc3_get_11_to_9(unsigned short instruction);
    Gets bits 8 through 6 in the instruction.
 */
 unsigned short lc3_get_8_to_6(unsigned short instruction);
+
+/* lc3_update_cc
+   Updates the CC based on the result.
+*/
+void lc3_update_cc(lc3machine *state, unsigned short answer);

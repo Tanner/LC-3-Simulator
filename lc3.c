@@ -95,6 +95,8 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         }
 
         state->regs[dest] = answer;
+
+        lc3_update_cc(state, answer);
     }
 }
 
@@ -111,4 +113,14 @@ unsigned short lc3_get_11_to_9(unsigned short instruction) {
 
 unsigned short lc3_get_8_to_6(unsigned short instruction) {
     return (instruction >> 6) & 0x7;
+}
+
+void lc3_update_cc(lc3machine *state, unsigned short answer) {
+    if (answer < 0) {
+        state->cc = LC3_NEGATIVE;
+    } else if (answer > 0) {
+        state->cc = LC3_POSITIVE;
+    } else {
+        state->cc = LC3_ZERO;
+    }
 }
