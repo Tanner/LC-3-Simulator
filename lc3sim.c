@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
                 if (strcmp(command, "step") == 0) {
                     // Step Command
                     if (args[1] == NULL) {
-                        lc3_step_one(&mach);
+                        lc3_run(&mach, 1);
                     } else {
                         int n = *args[1] - '0';
                         lc3_run(&mach, n);
@@ -168,8 +168,6 @@ int main(int argc, char **argv) {
                 }
             }
         }
-
-        mach.pc++;
 	}
 
     free(input);
