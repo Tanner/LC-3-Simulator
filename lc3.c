@@ -120,6 +120,19 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         state->regs[dest] = answer;
 
         lc3_update_cc(state, answer);
+    } else if (opcode == 0x0) {
+        // BR
+        unsigned char n = (instruction >> 11) & 0x1;
+        unsigned char z = (instruction >> 10) & 0x1;
+        unsigned char p = (instruction >> 9) & 0x1;
+
+        unsigned short offset = lc3_get_8_to_0(instruction);
+
+        unsigned char cc = state->cc;
+        
+        if ((p && cc == LC3_POSITIVE) || (z && cc == LC3_ZERO) || (n && cc == LC3_NEGATIVE)) {
+            state->pc += offset;
+        }
     }
 }
 
@@ -136,6 +149,10 @@ unsigned short lc3_get_11_to_9(unsigned short instruction) {
 
 unsigned short lc3_get_8_to_6(unsigned short instruction) {
     return (instruction >> 6) & 0x7;
+}
+
+unsigned short lc3_get_8_to_0(unsigned short instruction) {
+    return instruction & 0x1FF;
 }
 
 void lc3_update_cc(lc3machine *state, unsigned short answer) {
