@@ -94,6 +94,7 @@ int main(int argc, char **argv) {
                     break;
                 } else if (strcmp(command, "continue") == 0) {
                     // Continue command
+                    lc3_run(&mach, -1);
                 } else if (strcmp(command, "registers") == 0) {
                     // Registers command
                     cmd_registers(&mach);
