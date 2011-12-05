@@ -133,6 +133,11 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         if ((p && cc == LC3_POSITIVE) || (z && cc == LC3_ZERO) || (n && cc == LC3_NEGATIVE)) {
             state->pc += SEXT9(offset);
         }
+    } else if (opcode == 0xC) {
+        // JMP or RET
+        unsigned short reg = lc3_get_8_to_6(instruction);
+
+        state->pc = state->regs[reg];
     }
 }
 
