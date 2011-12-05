@@ -126,7 +126,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned char z = (instruction >> 10) & 0x1;
         unsigned char p = (instruction >> 9) & 0x1;
 
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(lc3_get_8_to_0(instruction));
 
         unsigned char cc = state->cc;
         
@@ -151,7 +151,7 @@ unsigned short lc3_get_8_to_6(unsigned short instruction) {
     return (instruction >> 6) & 0x7;
 }
 
-unsigned short lc3_get_8_to_0(unsigned short instruction) {
+short lc3_get_8_to_0(unsigned short instruction) {
     return instruction & 0x1FF;
 }
 

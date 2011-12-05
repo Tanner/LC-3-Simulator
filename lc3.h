@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 
+#define SEXT9(A) (((A) & 0x1FF) | (((A) & 0x100) ? 0xFE00 : 0x0))
+
 enum lc3_cc {
 	LC3_NEGATIVE = 4,
 	LC3_ZERO = 2,
@@ -90,4 +92,4 @@ void lc3_update_cc(lc3machine *state, unsigned short answer);
 /* lc3_get_8_to_0
    Gets bits 8 through 0 in the instruction.
 */
-unsigned short lc3_get_8_to_0(unsigned short instruction);
+short lc3_get_8_to_0(unsigned short instruction);
