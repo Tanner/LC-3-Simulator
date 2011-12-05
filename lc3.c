@@ -155,6 +155,16 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
             state->pc = state->regs[base];
         }
+    } else if (opcode == 0x2) {
+        // LD
+        unsigned short dest = lc3_get_11_to_9(instruction);
+        unsigned short offset = lc3_get_8_to_0(instruction);
+
+        short result = state->mem[state->pc + SEXT9(offset)];
+
+        state->regs[dest] = result;
+
+        lc3_update_cc(state, result);
     }
 }
 
