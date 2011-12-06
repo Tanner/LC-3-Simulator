@@ -225,6 +225,15 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned short offset = lc3_get_5_to_0(instruction);
 
         state->mem[state->regs[base] + SEXT6(offset)] = state->mem[src];
+    } else if (opcode == 0xF) {
+        // TRAP
+        unsigned short vector = (instruction >> 8) & 0xF;
+
+        if (vector == 0x25) {
+            // HALT
+            state->halted = true;
+            state->pc--;
+        }
     }
 }
 
