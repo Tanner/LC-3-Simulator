@@ -33,6 +33,11 @@ LOOP:
     ST R3, STORE
     LD R5, STORE
 
+    LEA R6, STORE
+    ST R6, STORE_LOC
+    STI R1, STORE_LOC
+    LD R5, STORE
+
     HALT
 
 NUMBER:
@@ -40,4 +45,6 @@ NUMBER:
 NOT_NUMBER:
     .fill 0x5555
 STORE:
+    .blkw 1
+STORE_LOC:
     .blkw 1
