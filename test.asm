@@ -42,6 +42,9 @@ LOOP:
 
     LDI R6, STORE_LOC
 
+    LD R5, STORE_LOC
+    LDR R0, R5, 0
+
     HALT
 
 NUMBER:
