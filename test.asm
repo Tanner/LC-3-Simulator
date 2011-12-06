@@ -15,6 +15,10 @@
 
     ADD R3, R3, 10
 
+    JSR LOOP
+
+    ADD R4, R4, 11
+
 LOOP:
     ADD R3, R3, -1
     BRNP LOOP
