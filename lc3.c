@@ -175,6 +175,17 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         state->regs[dest] = result;
 
         lc3_update_cc(state, result);
+    } else if (opcode == 0x6) {
+        // LDR
+        unsigned short dest = lc3_get_11_to_9(instruction);
+        unsigned short base = lc3_get_8_to_6(instruction);
+        unsigned short offset = lc3_get_5_to_0(instruction);
+
+        short result = state->mem[base + SEXT6(offset)];
+
+        state->regs[dest] = result;
+
+        lc3_update_cc(state, result);
     }
 }
 
@@ -195,6 +206,10 @@ unsigned short lc3_get_8_to_6(unsigned short instruction) {
 
 unsigned short lc3_get_8_to_0(unsigned short instruction) {
     return instruction & 0x1FF;
+}
+
+unsigned short lc3_get_5_to_0(unsigned short instruction) {
+    return instruction & 0x1F;
 }
 
 void lc3_update_cc(lc3machine *state, unsigned short answer) {
