@@ -13,4 +13,10 @@
     ADD R1, R1, 2
     ADD R2, R0, R1
 
+    ADD R3, R3, 10
+
+LOOP:
+    ADD R3, R3, -1
+    BRNP LOOP
+
     HALT
