@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 
     int max_args = 2;
 
-    char **args = malloc(sizeof(char *) * max_args + 1);
+    char **args = malloc(sizeof(char *) * (max_args + 1));
     assert(args);
 
 	while (1) {
