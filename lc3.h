@@ -13,6 +13,9 @@
 #define SEXT9(A) (((A) & 0x100) ? ((A) | 0xFE00) : (A))
 #define SEXT11(A) (((A) & 0x7FF) | (((A) & 0x400) ? 0xF800 : 0x0))
 
+#define BITS4_0(A) ((A) & 0x1F)
+#define BITS8_0(A) ((A) & 0x1FF)
+
 enum lc3_cc {
 	LC3_NEGATIVE = 4,
 	LC3_ZERO = 2,

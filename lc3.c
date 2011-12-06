@@ -89,9 +89,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             answer = state->regs[src1] + state->regs[src2];
         } else {
             // IMM5
-            unsigned short imm5 = instruction & 0x1F;
+            short imm5 = SEXT5(BITS4_0(instruction));
 
-            answer = state->regs[src1] + SEXT5(imm5);
+            answer = state->regs[src1] + imm5;
         }
 
         state->regs[dest] = answer;
@@ -112,9 +112,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             answer = state->regs[src1] & state->regs[src2];
         } else {
             // IMM5
-            unsigned short imm5 = instruction & 0x1F;
+            short imm5 = SEXT5(BITS4_0(instruction));
 
-            answer = state->regs[src1] & SEXT5(imm5);
+            answer = state->regs[src1] & imm5;
         }
 
         state->regs[dest] = answer;
@@ -126,16 +126,17 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned char z = (instruction >> 10) & 0x1;
         unsigned char p = (instruction >> 9) & 0x1;
 
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(BITS8_0(instruction));
 
         unsigned char cc = state->cc;
         
         if ((p && cc == LC3_POSITIVE) || (z && cc == LC3_ZERO) || (n && cc == LC3_NEGATIVE)) {
-            state->pc += SEXT9(offset);
+            state->pc += offset;
         }
     } else if (opcode == 0xC) {
         // JMP or RET
         unsigned short reg = lc3_get_8_to_6(instruction);
+
         state->pc = state->regs[reg];
     } else if (opcode == 0x4) {
         // JSR or JSRR
@@ -145,9 +146,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
         if (bit11) {
             // JSR
-            unsigned short offset = instruction & 0x7FF;
+            short offset = SEXT11(instruction & 0x7FF);
 
-            state->pc += SEXT11(offset);
+            state->pc = state->pc + offset;
         } else {
             // JSRR
             
@@ -158,7 +159,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     } else if (opcode == 0x2) {
         // LD
         unsigned short dest = lc3_get_11_to_9(instruction);
-        short offset = SEXT9(lc3_get_8_to_0(instruction));
+        short offset = SEXT9(BITS8_0(instruction));
          
         short result = state->mem[state->pc + offset];
 
@@ -169,9 +170,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     } else if (opcode == 0xA) {
         // LDI
         unsigned short dest = lc3_get_11_to_9(instruction);
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(lc3_get_8_to_0(instruction));
 
-        short result = state->mem[state->mem[state->pc + SEXT9(offset)]];
+        short result = state->mem[state->mem[state->pc + offset]];
 
         state->regs[dest] = result;
 
@@ -180,9 +181,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         // LDR
         unsigned short dest = lc3_get_11_to_9(instruction);
         unsigned short base = lc3_get_8_to_6(instruction);
-        unsigned short offset = lc3_get_5_to_0(instruction);
+        short offset = SEXT6(lc3_get_5_to_0(instruction));
 
-        short result = state->mem[state->regs[base] + SEXT6(offset)];
+        short result = state->mem[state->regs[base] + offset];
 
         state->regs[dest] = result;
 
@@ -190,9 +191,9 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     } else if (opcode == 0xE) {
         // LEA
         unsigned short dest = lc3_get_11_to_9(instruction);
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(lc3_get_8_to_0(instruction));
 
-        short result = state->pc + SEXT9(offset);
+        short result = state->pc + offset;
 
         state->regs[dest] = result;
 
@@ -210,22 +211,22 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     } else if (opcode == 0x3) {
         // ST
         unsigned short src = lc3_get_11_to_9(instruction);
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(lc3_get_8_to_0(instruction));
 
-        state->mem[state->pc + SEXT9(offset)] = state->regs[src];
+        state->mem[state->pc + offset] = state->regs[src];
     } else if (opcode == 0xB) {
         // STI
         unsigned short src = lc3_get_11_to_9(instruction);
-        unsigned short offset = lc3_get_8_to_0(instruction);
+        short offset = SEXT9(lc3_get_8_to_0(instruction));
 
-        state->mem[state->mem[state->pc + SEXT9(offset)]] = state->regs[src];
+        state->mem[state->mem[state->pc + offset]] = state->regs[src];
     } else if (opcode == 0x7) {
         // STR
         unsigned short src = lc3_get_11_to_9(instruction);
         unsigned short base = lc3_get_8_to_6(instruction);
-        unsigned short offset = lc3_get_5_to_0(instruction);
+        short offset = SEXT6(lc3_get_5_to_0(instruction));
 
-        state->mem[state->regs[base] + SEXT6(offset)] = state->regs[src];
+        state->mem[state->regs[base] + offset] = state->regs[src];
     } else if (opcode == 0xF) {
         // TRAP
         unsigned short vector = instruction & 0xEF;
