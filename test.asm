@@ -27,6 +27,8 @@ LOOP:
 
     LD R3, NUMBER
 
+    LEA R4, NUMBER
+
     HALT
 
 NUMBER:
