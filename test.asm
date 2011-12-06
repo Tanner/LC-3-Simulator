@@ -38,6 +38,8 @@ LOOP:
     STI R1, STORE_LOC
     LD R5, STORE
 
+    STR R4, R3, 0
+
     HALT
 
 NUMBER:
