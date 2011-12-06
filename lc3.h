@@ -86,4 +86,4 @@ unsigned short lc3_get_opcode(unsigned short instruction);
 /* lc3_update_cc
    Updates the CC based on the result.
 */
-void lc3_update_cc(lc3machine *state, unsigned short answer);
+void lc3_update_cc(lc3machine *state, short answer);

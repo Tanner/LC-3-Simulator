@@ -279,7 +279,7 @@ unsigned short lc3_get_opcode(unsigned short instruction) {
     return (instruction & 0xF000) >> 12;
 }
 
-void lc3_update_cc(lc3machine *state, unsigned short answer) {
+void lc3_update_cc(lc3machine *state, short answer) {
     if (answer < 0) {
         state->cc = LC3_NEGATIVE;
     } else if (answer > 0) {
