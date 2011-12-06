@@ -30,9 +30,14 @@ LOOP:
     LD R4, NOT_NUMBER
     NOT R4, R4
 
+    ST R3, STORE
+    LD R5, STORE
+
     HALT
 
 NUMBER:
     .fill 1261
 NOT_NUMBER:
     .fill 0x5555
+STORE:
+    .blkw 1
