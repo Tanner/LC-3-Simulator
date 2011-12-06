@@ -48,8 +48,11 @@ LOOP:
     LD R0, A
     OUT
 
-    GETC
+    !GETC
     OUT
+
+    LEA R0, STRING
+    PUTS
 
     HALT
 
@@ -63,3 +66,5 @@ STORE_LOC:
     .blkw 1
 A
     .fill 65
+STRING
+    .stringz "Hello World"
