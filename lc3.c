@@ -47,9 +47,6 @@ void lc3_load(lc3machine* state, FILE* program) {
 }
 
 void lc3_step_one(lc3machine* state) {
-	// If the machine is not halted
-	// Fetch an instruction
-	// And call lc3_execute 
     if (!state->halted) {
         short instruction = lc3_fetch(state);
 
