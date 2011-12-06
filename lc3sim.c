@@ -83,12 +83,14 @@ int main(int argc, char **argv) {
             if (command != NULL) {
                 if (strcmp(command, "step") == 0) {
                     // Step Command
-                    if (args[1] == NULL) {
-                        lc3_run(&mach, 1);
-                    } else {
-                        int n = *args[1] - '0';
-                        lc3_run(&mach, n);
+                    int n = 1;
+
+                    if (args[1] != NULL) {
+                        n = *args[1] - '0';
                     }
+
+                    lc3_run(&mach, n);
+                    cmd_registers(&mach);
                 } else if (strcmp(command, "quit") == 0) {
                     // Quit command
                     break;
