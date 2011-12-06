@@ -277,10 +277,10 @@ Should print out the contents of memory from start to end
 If end is -1 then just print out memory[start]*/
 void cmd_dump(lc3machine *mach, int start, int end) {
     if (end == -1) {
-        printf("0x%.4X: 0x%.4X\n", start, (unsigned short)mach->mem[start]);
+        printf("0x%.4X: 0x%.4X (%d)\n", start, (unsigned short)mach->mem[start], mach->mem[start]);
     } else if (start <= end) {
         for (int i = start; i <= end; i++) {
-            printf("0x%.4X: 0x%.4X\n", i, (unsigned short)mach->mem[i]);
+            printf("0x%.4X: 0x%.4X (%d)\n", i, (unsigned short)mach->mem[i], mach->mem[i]);
         }
     }
 }
