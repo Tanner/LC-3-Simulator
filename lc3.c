@@ -232,16 +232,21 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         state->mem[state->regs[base] + offset] = state->regs[src];
     } else if (opcode == 0xF) {
         // TRAP
-        unsigned short vector = instruction & 0xEF;
+        unsigned char vector = instruction & 0xEF;
 
-        if (vector == 0x20) {
+        lc3_trap(state, vector);
+    }
+}
+
+void lc3_trap(lc3machine* state, unsigned char vector8) {
+        if (vector8 == 0x20) {
             char buffer[256];
             char input = fgets((char *)&buffer, 256, stdin)[0];
             state->regs[0] = input;
-        } else if (vector == 0x21) {
+        } else if (vector8 == 0x21) {
             // OUT
             printf("%c", state->regs[0]);
-        } else if (vector == 0x22) {
+        } else if (vector8 == 0x22) {
             // PUTS
             int addr = state->regs[0];
             int value = 0;
@@ -251,14 +256,14 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
                 addr++;
             }
-        } else if (vector == 0x23) {
+        } else if (vector8 == 0x23) {
             // IN
             printf("Input a character: ");
 
             char buffer[256];
             char input = fgets((char *)&buffer, 256, stdin)[0];
             state->regs[0] = input;
-        } else if (vector == 0x24) {
+        } else if (vector8 == 0x24) {
             // PUTSP
             int addr = state->regs[0];
             int value = 0;
@@ -269,15 +274,11 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
                 addr++;
             }
-        } else if (vector == 0x25) {
+        } else if (vector8 == 0x25) {
             // HALT
             state->halted = true;
             state->pc--;
         }
-    }
-}
-
-void lc3_trap(lc3machine* state, unsigned char vector8) {
 }
 
 unsigned short lc3_get_opcode(unsigned short instruction) {
