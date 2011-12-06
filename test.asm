@@ -40,6 +40,8 @@ LOOP:
 
     STR R4, R3, 0
 
+    LDI R6, STORE_LOC
+
     HALT
 
 NUMBER:
