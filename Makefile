@@ -15,6 +15,9 @@ run: build-release
 	lc3as test.asm
 	./$(PROGRAM) test.obj
 
+valgrind: build-debug
+	valgrind --leak-check=yes --show-reachable=yes --tool=memcheck ./$(PROGRAM) test.obj
+
 build-release: CFLAGS += $(OPTFLAG)
 build-release: $(PROGRAM)
 
