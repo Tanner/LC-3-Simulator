@@ -23,4 +23,6 @@ LOOP:
     ADD R3, R3, -1
     BRNP LOOP
 
+    !JSRR R0
+
     HALT
