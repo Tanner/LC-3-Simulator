@@ -21,10 +21,16 @@ void lc3_load(lc3machine* state, FILE* program) {
     short data = 0;
     short address = 0;
 
-    while (data != EOF) {
-        data = (fgetc(program) << 8) | fgetc(program);
+    short dataA = 0;
+    short dataB = 0;
 
-        if (data == EOF) {
+    while (true) {
+        dataA = fgetc(program);
+        dataB = fgetc(program);
+        
+        data = (dataA << 8) | dataB;
+
+        if (dataA == EOF || dataB == EOF) {
             break;
         }
 
