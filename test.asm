@@ -9,4 +9,8 @@
     AND R6, R6, 0
     AND R7, R7, 0
 
+    ADD R0, R0, 1
+    ADD R1, R1, 2
+    ADD R2, R0, R1
+
     HALT
