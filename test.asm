@@ -27,9 +27,12 @@ LOOP:
 
     LD R3, NUMBER
 
-    LEA R4, NUMBER
+    LD R4, NOT_NUMBER
+    NOT R4, R4
 
     HALT
 
 NUMBER:
     .fill 1261
+NOT_NUMBER:
+    .fill 0x5555
