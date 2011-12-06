@@ -212,6 +212,12 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned short offset = lc3_get_8_to_0(instruction);
 
         state->mem[state->pc + SEXT9(offset)] = state->regs[src];
+    } else if (opcode == 0xB) {
+        // STI
+        unsigned short src = lc3_get_11_to_9(instruction);
+        unsigned short offset = lc3_get_8_to_0(instruction);
+
+        state->mem[state->mem[state->pc + SEXT9(offset)]] = state->regs[src];
     }
 }
 
