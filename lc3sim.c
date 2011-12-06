@@ -105,20 +105,18 @@ int main(int argc, char **argv) {
                     if (args[1] == NULL) {
                         printf("Usage: dump start [end]\n");
                     } else {
-                        int start = htoi(args[1]);
+                        int start = strtol(args[1], NULL, 16);
 
-                        if (args[2] == NULL && start != -1) {
+                        if (args[2] == NULL) {
                             cmd_dump(&mach, start, -1);
                         } else if (args[2] != NULL) {
-                            int end = htoi(args[2]);
+                            int end = strtol(args[1], NULL, 16);
                             
                             if (end != -1) {
                                 cmd_dump(&mach, start, end);
                             } else {
                                 printf("Invalid memory address: %s\n", args[2]);
                             }
-                        } else {
-                            printf("Invalid memory address: %s\n", args[1]);
                         }
                     }
                 } else if (strcmp(command, "setaddr") == 0) {
@@ -126,7 +124,7 @@ int main(int argc, char **argv) {
                     if (args[1] == NULL && args[2] == NULL) {
                         printf("Usage: setaddr addr value\n");
                     } else {
-                        int address = htoi(args[1]);
+                        int address = strtol(args[1], NULL, 16);
                         short value = atoi(args[2]);
 
                         if (address != -1) {
@@ -202,61 +200,6 @@ void split(char *input, char **split, char *delimiter, int count) {
 
         temp = strtok(NULL, delimiter);
     }
-}
-
-int htoi(char *str) {
-    int i = 0;
-
-    if (str[i] == '0') {
-        i++;
-        if (str[i] == 'x' || str[i] == 'X') {
-            i++;
-        }
-    }
-
-    if (i == 2) {
-        // Good so far got the 0x
-        int answer = 0;
-
-        while (i < strlen(str)) {
-            answer *= 16;
-
-            if (str[i] >= '0' && str[i] <= '9') {
-                answer += str[i] - '0';
-            } else {
-                int number = hex_letter_to_int(str[i]);
-                answer += number;
-
-                if (number == 0) {
-                    return -1;
-                }
-            }
-
-            i++;
-        }
-
-        return answer;
-    } else {
-        return -1;
-    }
-}
-
-int hex_letter_to_int(char letter) {
-    if (letter & 0x20) {
-        // Letter is lowercase
-        if (letter >= 97 && letter <= 102) {
-            // a to f
-            return 10 + (letter - 97);
-        }
-    } else {
-        // Letter is uppercase
-        if (letter >= 65 && letter <= 70) {
-            // A to F
-            return 10 + (letter - 65);
-        }
-    }
-
-    return 0;
 }
 
 /* cmd_step and cmd_continue 's functionality are provided in lc3_run
