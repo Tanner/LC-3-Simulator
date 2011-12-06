@@ -264,11 +264,11 @@ Therefore to execute the step and coninute commands you can just call lc3_run wi
 Should print out all of the registers and the PC and CC in both hex and signed decimal.
 */
 void cmd_registers(lc3machine *mach) {
-    printf("PC: 0x%.6X (%d)\n", mach->pc, mach->pc);
-    printf("CC: 0x%.6X (%d)\n", mach->cc, mach->cc);
+    printf("PC: 0x%.4X (%d)\n", mach->pc, mach->pc);
+    printf("CC: 0x%.4X (%d)\n", mach->cc, mach->cc);
 
     for (int i = 0; i < sizeof(mach->regs) / sizeof(short); i++) {
-        printf("R%d: 0x%.6X (%d)\n", i + 1, mach->regs[i], mach->regs[i]);
+        printf("R%d: 0x%.4X (%d)\n", i + 1, (unsigned short)mach->regs[i], mach->regs[i]);
     }
 }
 
