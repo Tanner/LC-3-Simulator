@@ -25,4 +25,9 @@ LOOP:
 
     !JSRR R0
 
+    LD R3, NUMBER
+
     HALT
+
+NUMBER:
+    .fill 1261
