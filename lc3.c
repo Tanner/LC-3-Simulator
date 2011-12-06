@@ -186,6 +186,16 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         state->regs[dest] = result;
 
         lc3_update_cc(state, result);
+    } else if (opcode == 0xE) {
+        // LEA
+        unsigned short dest = lc3_get_11_to_9(instruction);
+        unsigned short offset = lc3_get_8_to_0(instruction);
+
+        short result = state->pc + SEXT9(offset);
+
+        state->regs[dest] = result;
+
+        lc3_update_cc(state, result);
     }
 }
 
