@@ -45,6 +45,9 @@ LOOP:
     LD R5, STORE_LOC
     LDR R0, R5, 0
 
+    LD R0, A
+    OUT
+
     HALT
 
 NUMBER:
@@ -55,3 +58,5 @@ STORE:
     .blkw 1
 STORE_LOC:
     .blkw 1
+A
+    .fill 65
