@@ -236,7 +236,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             state->regs[0] = input;
         } else if (vector == 0x21) {
             // OUT
-            printf("%c\n", state->regs[0]);
+            printf("%c", state->regs[0]);
         } else if (vector == 0x22) {
             // PUTS
             int addr = state->regs[0];
@@ -247,8 +247,6 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
                 addr++;
             }
-
-            printf("\n");
         } else if (vector == 0x23) {
             // IN
             printf("Input a character: ");
@@ -266,8 +264,6 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
                 addr++;
             }
-
-            printf("\n");
         } else if (vector == 0x25) {
             // HALT
             state->halted = true;
