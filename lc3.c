@@ -181,7 +181,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned short base = lc3_get_8_to_6(instruction);
         unsigned short offset = lc3_get_5_to_0(instruction);
 
-        short result = state->mem[base + SEXT6(offset)];
+        short result = state->mem[state->regs[base] + SEXT6(offset)];
 
         state->regs[dest] = result;
 
