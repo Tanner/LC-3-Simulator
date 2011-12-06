@@ -10,7 +10,7 @@
 
 #define SEXT5(A) (((A) & 0x1F) | (((A) & 0x10) ? 0xFFE0 : 0x0))
 #define SEXT6(A) (((A) & 0x2F) | (((A) & 0x20) ? 0xFFD0 : 0x0))
-#define SEXT9(A) (((A) & 0x1FF) | (((A) & 0x100) ? 0xFE00 : 0x0))
+#define SEXT9(A) (((A) & 0x100) ? ((A) | 0xFE00) : (A))
 #define SEXT11(A) (((A) & 0x7FF) | (((A) & 0x400) ? 0xF800 : 0x0))
 
 enum lc3_cc {
@@ -90,7 +90,7 @@ unsigned short lc3_get_8_to_6(unsigned short instruction);
 /* lc3_get_8_to_0
    Gets bits 8 through 0 in the instruction.
 */
-unsigned short lc3_get_8_to_0(unsigned short instruction);
+short lc3_get_8_to_0(unsigned short instruction);
 
 /* lc3_get_5_to_0
    Gets bits 5 through 0 in the instruction.

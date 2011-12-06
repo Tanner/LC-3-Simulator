@@ -60,6 +60,9 @@ LOOP:
     LEA R0, LETTERS
     PUTSP
 
+    LD R1, 1
+    LD R1, -1
+
     HALT
 
 NUMBER:
