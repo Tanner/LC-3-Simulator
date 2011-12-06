@@ -140,7 +140,7 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         state->pc = state->regs[reg];
     } else if (opcode == 0x4) {
         // JSR or JSRR
-        state->regs[6] = state->pc;
+        state->regs[7] = state->pc;
 
         unsigned short bit11 = (instruction >> 11) & 0x1;
 
