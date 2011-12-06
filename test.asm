@@ -54,6 +54,9 @@ LOOP:
     LEA R0, STRING
     PUTS
 
+    IN
+    OUT
+
     HALT
 
 NUMBER:

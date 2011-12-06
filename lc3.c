@@ -247,6 +247,12 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             }
 
             printf("\n");
+        } else if (vector == 0x23) {
+            // IN
+            printf("Input a character: ");
+
+            char input = getc(stdin);
+            state->regs[0] = input;
         } else if (vector == 0x25) {
             // HALT
             state->halted = true;
