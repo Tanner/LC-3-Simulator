@@ -13,7 +13,10 @@
 #define SEXT9(A) (((A) & 0x100) ? ((A) | 0xFE00) : (A))
 #define SEXT11(A) (((A) & 0x7FF) | (((A) & 0x400) ? 0xF800 : 0x0))
 
+#define BITS_11_9(A) (((A) >> 9) & 0x7)
+#define BITS_8_6(A) (((A) >> 6) & 0x7)
 #define BITS_4_0(A) ((A) & 0x1F)
+#define BITS_5_0(A) ((A) & 0x3F)
 #define BITS_8_0(A) ((A) & 0x1FF)
 
 enum lc3_cc {
@@ -79,26 +82,6 @@ void lc3_trap(lc3machine* state, unsigned char vector8);
    Gets the opcode from an instruction.
 */
 unsigned short lc3_get_opcode(unsigned short instruction);
-
-/* lc3_get_11_to_9
-   Gets bits 11 through 9 in the instruction.
-*/
-unsigned short lc3_get_11_to_9(unsigned short instruction);
-
-/* lc3_get_8_to_6
-   Gets bits 8 through 6 in the instruction.
-*/
-unsigned short lc3_get_8_to_6(unsigned short instruction);
-
-/* lc3_get_8_to_0
-   Gets bits 8 through 0 in the instruction.
-*/
-short lc3_get_8_to_0(unsigned short instruction);
-
-/* lc3_get_5_to_0
-   Gets bits 5 through 0 in the instruction.
-*/
-unsigned short lc3_get_5_to_0(unsigned short instruction);
 
 /* lc3_update_cc
    Updates the CC based on the result.
