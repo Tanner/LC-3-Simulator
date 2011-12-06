@@ -235,7 +235,8 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         unsigned short vector = instruction & 0xEF;
 
         if (vector == 0x20) {
-            char input = getc(stdin);
+            char buffer[256];
+            char input = fgets((char *)&buffer, 256, stdin)[0];
             state->regs[0] = input;
         } else if (vector == 0x21) {
             // OUT
@@ -254,7 +255,8 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
             // IN
             printf("Input a character: ");
 
-            char input = getc(stdin);
+            char buffer[256];
+            char input = fgets((char *)&buffer, 256, stdin)[0];
             state->regs[0] = input;
         } else if (vector == 0x24) {
             // PUTSP
