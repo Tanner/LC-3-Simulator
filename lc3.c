@@ -253,6 +253,19 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
 
             char input = getc(stdin);
             state->regs[0] = input;
+        } else if (vector == 0x24) {
+            // PUTSP
+            int addr = state->regs[0];
+            int value = 0;
+
+            while ((value = state->mem[addr]) != 0x0000) {
+                printf("%c", value & 0x00FF);
+                printf("%c", (value >> 8) & 0x00FF);
+
+                addr++;
+            }
+
+            printf("\n");
         } else if (vector == 0x25) {
             // HALT
             state->halted = true;

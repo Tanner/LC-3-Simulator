@@ -57,6 +57,9 @@ LOOP:
     IN
     OUT
 
+    LEA R0, LETTERS
+    PUTSP
+
     HALT
 
 NUMBER:
@@ -71,3 +74,7 @@ A
     .fill 65
 STRING
     .stringz "Hello World"
+LETTERS
+    .fill 0x4554
+    .fill 0x5453
+    .fill 0x0000
