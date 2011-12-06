@@ -181,6 +181,14 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
+/**
+ * Split a string into x variable.
+ *
+ * @param *input String to split up
+ * @param **split Where to store results of split
+ * @param *delimiter Delimiter to use
+ * @param count Number of splits to make
+ */
 void split(char *input, char **split, char *delimiter, int count) {
     char *temp = strtok(input, delimiter);
 
@@ -201,9 +209,6 @@ void split(char *input, char **split, char *delimiter, int count) {
         temp = strtok(NULL, delimiter);
     }
 }
-
-/* cmd_step and cmd_continue 's functionality are provided in lc3_run
-Therefore to execute the step and coninute commands you can just call lc3_run with the correct parameters*/
 
 /* cmd_registers
 Should print out all of the registers and the PC and CC in both hex and signed decimal.

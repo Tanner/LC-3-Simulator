@@ -8,12 +8,23 @@
 #include <stdbool.h>
 #include "lc3.h"
 
+/**
+ * Inits the LC-3 machine.
+ *
+ * @param *state lc3machine
+ */
 void lc3_init(lc3machine* state) {
     state->pc = 0x3000;
     state->cc = LC3_ZERO;
     state->halted = false;
 }
 
+/**
+ * Loads the program file into the LC-3 machine.
+ *
+ * @param *state lc3machine
+ * @param *program Program to load
+ */
 void lc3_load(lc3machine* state, FILE* program) {
     lc3_init(state);
 
@@ -46,6 +57,11 @@ void lc3_load(lc3machine* state, FILE* program) {
     }
 }
 
+/**
+ * Execute one instruction.
+ *
+ * @param *state lc3machine
+ */
 void lc3_step_one(lc3machine* state) {
     if (!state->halted) {
         short instruction = lc3_fetch(state);
@@ -54,6 +70,12 @@ void lc3_step_one(lc3machine* state) {
     }
 }
 
+/**
+ * Runs the machine x steps.
+ *
+ * @param *state lc3machine
+ * @param num_steps Number of steps to run (x)
+ */
 void lc3_run(lc3machine* state, int num_steps) {
     if (num_steps >= 0) {
         for (int i = 0; i < num_steps && !state->halted; i++) {
@@ -66,6 +88,11 @@ void lc3_run(lc3machine* state, int num_steps) {
     }
 }
 
+/**
+ * Fetches the current instruction and increments the PC.
+ *
+ * @param *state lc3machine
+ */
 unsigned short lc3_fetch(lc3machine* state) {
     short instruction = state->mem[state->pc];
 
@@ -74,6 +101,12 @@ unsigned short lc3_fetch(lc3machine* state) {
 	return instruction;
 }
 
+/**
+ * Execute the given instruction.
+ *
+ * @param *state lc3machine
+ * @param instruction Instruction to run
+ */
 void lc3_execute(lc3machine* state, unsigned short instruction) {
     unsigned short opcode = lc3_get_opcode(instruction);
 
@@ -238,6 +271,12 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
     }
 }
 
+/**
+ * Execute a specific TRAP.
+ *
+ * @param *state lc3machine
+ * @param vector8 vector code
+ */
 void lc3_trap(lc3machine* state, unsigned char vector8) {
         if (vector8 == 0x20) {
             char buffer[256];
@@ -281,10 +320,21 @@ void lc3_trap(lc3machine* state, unsigned char vector8) {
         }
 }
 
+/**
+ * Get the opcode from an instruction.
+ *
+ * @param instruction Instruction
+ */
 unsigned short lc3_get_opcode(unsigned short instruction) {
     return (instruction & 0xF000) >> 12;
 }
 
+/**
+ * Update the CC from a result.
+ *
+ * @param *state lc3machine
+ * @param answer Result to update the CC with
+ */
 void lc3_update_cc(lc3machine *state, short answer) {
     if (answer < 0) {
         state->cc = LC3_NEGATIVE;
