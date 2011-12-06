@@ -229,7 +229,10 @@ void lc3_execute(lc3machine* state, unsigned short instruction) {
         // TRAP
         unsigned short vector = instruction & 0xEF;
 
-        if (vector == 0x21) {
+        if (vector == 0x20) {
+            char input = getc(stdin);
+            state->regs[0] = input;
+        } else if (vector == 0x21) {
             // OUT
             printf("%c\n", state->regs[0]);
         } else if (vector == 0x25) {

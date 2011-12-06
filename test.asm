@@ -48,6 +48,9 @@ LOOP:
     LD R0, A
     OUT
 
+    GETC
+    OUT
+
     HALT
 
 NUMBER:
