@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
                     int n = 1;
 
                     if (args[1] != NULL) {
-                        n = *args[1] - '0';
+                        n = atoi(args[1]);
                     }
 
                     lc3_run(&mach, n);
